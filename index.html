@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive pipeline for adjusting pose and composition in AI-generated character images while preserving appearance and style."
+    />
+    <title>Character-Preserving Pose Refinement</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top">Character-Preserving Pose Refinement</a>
+      <nav class="nav" aria-label="Page navigation">
+        <a href="#results">Results</a>
+        <a href="#attempts">Attempts</a>
+        <a href="#pipeline">Pipeline</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="title">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Image Editing Pipeline</p>
+          <h1 id="title">Character-Preserving Pose Refinement</h1>
+          <p class="lead">
+            This project started from a common frustration in AI image generation: the generated
+            character's face, style, or overall appearance may be satisfying, while the pose and
+            composition are not. The goal was to keep the character identity intact and refine only
+            the body pose through an interactive 3D control workflow.
+          </p>
+          <ul class="tag-row" aria-label="Keywords">
+            <li>ComfyUI</li>
+            <li>SAM3Dbody</li>
+            <li>3D Pose Control</li>
+            <li>Generative Editing</li>
+          </ul>
+        </div>
+        <div class="example-row hero-media" aria-label="Target pose, source image, and refined output">
+          <figure><span>Target pose</span><img src="./assets/result1_pose.png" alt="Target pose input" /></figure>
+          <figure><span>Source</span><img src="./assets/result1_source.png" alt="Source character image" /></figure>
+          <figure><span>Output</span><img src="./assets/result1_output.png" alt="Pose-refined output" /></figure>
+        </div>
+      </section>
+
+      <section id="results" class="section" aria-labelledby="results-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Final Result Examples</p>
+            <h2 id="results-title">Same character, revised pose</h2>
+          </div>
+          <p>
+            The final system receives a source character image and a target pose image, then generates
+            a new image that follows the pose while preserving the subject's visual identity and style.
+          </p>
+        </div>
+        <div class="result-grid" aria-label="Final result examples">
+          <figure><span>Target pose</span><img src="./assets/result1_pose.png" alt="First target pose image" /></figure>
+          <figure><span>Source</span><img src="./assets/result1_source.png" alt="First source character image" /></figure>
+          <figure><span>Output</span><img src="./assets/result1_output.png" alt="First pose-refined output" /></figure>
+          <figure><span>Target pose</span><img src="./assets/result2_pose.png" alt="Second target pose image" /></figure>
+          <figure><span>Source</span><img src="./assets/result2_source.png" alt="Second source character image" /></figure>
+          <figure><span>Output</span><img src="./assets/result2_output.png" alt="Second pose-refined output" /></figure>
+          <figure><span>Target pose</span><img src="./assets/result3_pose.png" alt="Third target pose image" /></figure>
+          <figure><span>Source</span><img src="./assets/result3_source.png" alt="Third source character image" /></figure>
+          <figure><span>Output</span><img src="./assets/result3_output.png" alt="Third pose-refined output" /></figure>
+        </div>
+      </section>
+
+      <section id="attempts" class="section" aria-labelledby="attempts-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">First Attempt</p>
+            <h2 id="attempts-title">2D skeleton-based control</h2>
+          </div>
+          <p>
+            The first direction was to extract a 2D skeleton from the image and use that skeleton as
+            the pose control signal.
+          </p>
+        </div>
+        <div class="split">
+          <article class="panel">
+            <h3>Approach</h3>
+            <p>
+              OpenPose-style skeleton extraction made the pose condition explicit and easy to pass to
+              a generation model.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>Result</h3>
+            <p>
+              Manipulating a 3D body pose on a 2D plane was not intuitive. The model also failed to
+              follow the intended pose reliably when the skeleton alone was used as guidance.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="second-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Second Attempt</p>
+            <h2 id="second-title">Model combinations for identity preservation</h2>
+          </div>
+          <p>
+            The next direction tested recent models and combined multiple conditioning components to
+            improve pose control and identity consistency.
+          </p>
+        </div>
+        <div class="split">
+          <article class="panel">
+            <h3>Approach</h3>
+            <p>
+              CFLD and ChronoEdit were reviewed, and combinations of Stable Diffusion, ControlNet,
+              IP-Adapter, and Arc2Face were tested and modified.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>Result</h3>
+            <p>
+              The generated pose improved in some cases, but clothing texture, facial details, and
+              hairstyle often drifted. This was not stable enough for character-preserving refinement.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="final-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Final Attempt</p>
+            <h2 id="final-title">ComfyUI, SAM3Dbody, and NanoBanana</h2>
+          </div>
+          <p>
+            The final version moved pose editing into ComfyUI, used SAM3Dbody to recover a rigged 3D
+            body from a single image, and connected the edited pose to the generation API.
+          </p>
+        </div>
+        <div class="split visual-split">
+          <figure class="media-frame">
+            <img
+              src="./assets/pose_editor.png"
+              alt="ComfyUI pose editor node showing 3D joint manipulation and screenshot capture"
+            />
+          </figure>
+          <article class="panel">
+            <h3>Why it worked better</h3>
+            <p>
+              A 3D pose editor made the intended body motion easier to control than a flat skeleton.
+              The custom node supported joint selection, mouse-drag rotation, camera reset, and
+              screenshot capture inside the ComfyUI workflow.
+            </p>
+            <p>
+              NanoBanana showed stronger consistency than the previous combinations, especially in
+              facial impression, clothing, hairstyle, and overall character appearance.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="pipeline" class="section" aria-labelledby="pipeline-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Final Output and Pipeline</p>
+            <h2 id="pipeline-title">An interactive refinement loop</h2>
+          </div>
+          <p>
+            The pipeline was designed as a controllable editing loop rather than a repeated prompt
+            trial-and-error process.
+          </p>
+        </div>
+        <div class="media-stack">
+          <figure class="media-frame">
+            <img
+              src="./assets/workflow_overview.png"
+              alt="ComfyUI workflow connecting source image, SAM3Dbody, pose editor, upload nodes, and NanoBanana pose transfer"
+            />
+          </figure>
+          <figure class="media-frame">
+            <img
+              src="./assets/api_node.png"
+              alt="NanoBanana API node receiving uploaded source and pose image URLs inside ComfyUI"
+            />
+          </figure>
+        </div>
+        <ol class="pipeline-list">
+          <li><strong>Input</strong><span>Load the character image whose appearance should be preserved.</span></li>
+          <li><strong>3D pose extraction</strong><span>SAM3Dbody converts the person into a controllable rigged pose.</span></li>
+          <li><strong>Pose editing</strong><span>Select joints and rotate them directly inside the custom ComfyUI node.</span></li>
+          <li><strong>Generation</strong><span>Send the source image and edited pose image to generate the refined result.</span></li>
+        </ol>
+      </section>
+    </main>
+  </body>
+</html>
