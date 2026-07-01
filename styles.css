@@ -241,14 +241,14 @@ figure {
 
 .method-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 520px);
+  justify-content: center;
   gap: 1.5rem;
 }
 
 .method-grid img {
   width: 100%;
-  height: 330px;
-  object-fit: contain;
+  height: auto;
   background: #111;
 }
 
@@ -376,7 +376,6 @@ figcaption {
     line-height: 1;
   }
 
-  .method-grid img,
   .single-visual img {
     max-height: 260px;
   }
