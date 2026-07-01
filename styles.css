@@ -169,9 +169,16 @@ figure {
 }
 
 .result-flow figure,
-.method-grid figure,
 .single-visual figure {
   overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.method-grid figure {
+  overflow: hidden;
+  margin: 0 auto;
   border: 1px solid #dedede;
   border-radius: 6px;
   background: #fff;
@@ -241,7 +248,7 @@ figure {
 
 .method-grid {
   display: grid;
-  grid-template-columns: minmax(0, 520px);
+  grid-template-columns: minmax(0, 420px);
   justify-content: center;
   gap: 1.5rem;
 }
@@ -249,7 +256,7 @@ figure {
 .method-grid img {
   width: 100%;
   height: auto;
-  background: #111;
+  background: #fff;
 }
 
 .single-visual {
