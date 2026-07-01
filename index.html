@@ -11,51 +11,31 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#top">Character-Preserving Pose Refinement</a>
-      <nav class="nav" aria-label="Page navigation">
-        <a href="#results">Results</a>
-        <a href="#attempts">Attempts</a>
-        <a href="#pipeline">Pipeline</a>
-      </nav>
-    </header>
-
     <main id="top">
       <section class="hero" aria-labelledby="title">
-        <div class="hero-copy">
-          <p class="eyebrow">AI Image Editing Pipeline</p>
-          <h1 id="title">Character-Preserving Pose Refinement</h1>
-          <p class="lead">
-            This project started from a common frustration in AI image generation: the generated
-            character's face, style, or overall appearance may be satisfying, while the pose and
-            composition are not. The goal was to keep the character identity intact and refine only
-            the body pose through an interactive 3D control workflow.
-          </p>
-          <ul class="tag-row" aria-label="Keywords">
-            <li>ComfyUI</li>
-            <li>SAM3Dbody</li>
-            <li>3D Pose Control</li>
-            <li>Generative Editing</li>
-          </ul>
-        </div>
-        <div class="example-row hero-media" aria-label="Target pose, source image, and refined output">
-          <figure><span>Target pose</span><img src="./assets/result1_pose.png" alt="Target pose input" /></figure>
-          <figure><span>Source</span><img src="./assets/result1_source.png" alt="Source character image" /></figure>
-          <figure><span>Output</span><img src="./assets/result1_output.png" alt="Pose-refined output" /></figure>
-        </div>
+        <p class="eyebrow">AI Image Editing Pipeline</p>
+        <h1 id="title">Character-Preserving<br />Pose Refinement</h1>
+        <p class="authors">Yunseok Jang · Guhyun Jung ·<br class="mobile-break" /> Kyumin Lee</p>
+        <p class="affiliation">Sejong University</p>
+        <p class="lead">
+          An interactive pipeline for adjusting pose and composition in AI-generated character images
+          while preserving the character's appearance, facial impression, and visual style.
+        </p>
+        <ul class="tag-row" aria-label="Keywords">
+          <li>ComfyUI</li>
+          <li>SAM3Dbody</li>
+          <li>3D Pose Control</li>
+          <li>Generative Editing</li>
+        </ul>
       </section>
 
       <section id="results" class="section" aria-labelledby="results-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Final Result Examples</p>
-            <h2 id="results-title">Same character, revised pose</h2>
-          </div>
-          <p>
-            The final system receives a source character image and a target pose image, then generates
-            a new image that follows the pose while preserving the subject's visual identity and style.
-          </p>
-        </div>
+        <p class="kicker">Final Result Examples</p>
+        <h2 id="results-title">Same character,<br />revised pose</h2>
+        <p class="section-summary">
+          The final system receives a source character image and a target pose image, then generates
+          a new image that follows the pose while preserving the subject's visual identity and style.
+        </p>
         <div class="result-grid" aria-label="Final result examples">
           <figure><span>Target pose</span><img src="./assets/result1_pose.png" alt="First target pose image" /></figure>
           <figure><span>Source</span><img src="./assets/result1_source.png" alt="First source character image" /></figure>
@@ -70,16 +50,12 @@
       </section>
 
       <section id="attempts" class="section" aria-labelledby="attempts-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">First Attempt</p>
-            <h2 id="attempts-title">2D skeleton-based control</h2>
-          </div>
-          <p>
-            The first direction was to extract a 2D skeleton from the image and use that skeleton as
-            the pose control signal.
-          </p>
-        </div>
+        <p class="kicker">First Attempt</p>
+        <h2 id="attempts-title">2D skeleton-based control</h2>
+        <p class="section-summary">
+          The first direction was to extract a 2D skeleton from the image and use that skeleton as
+          the pose control signal.
+        </p>
         <div class="split">
           <article class="panel">
             <h3>Approach</h3>
@@ -99,16 +75,12 @@
       </section>
 
       <section class="section" aria-labelledby="second-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Second Attempt</p>
-            <h2 id="second-title">Model combinations for identity preservation</h2>
-          </div>
-          <p>
-            The next direction tested recent models and combined multiple conditioning components to
-            improve pose control and identity consistency.
-          </p>
-        </div>
+        <p class="kicker">Second Attempt</p>
+        <h2 id="second-title">Model combinations for identity preservation</h2>
+        <p class="section-summary">
+          The next direction tested recent models and combined multiple conditioning components to
+          improve pose control and identity consistency.
+        </p>
         <div class="split">
           <article class="panel">
             <h3>Approach</h3>
@@ -128,16 +100,12 @@
       </section>
 
       <section class="section" aria-labelledby="final-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Final Attempt</p>
-            <h2 id="final-title">ComfyUI, SAM3Dbody, and NanoBanana</h2>
-          </div>
-          <p>
-            The final version moved pose editing into ComfyUI, used SAM3Dbody to recover a rigged 3D
-            body from a single image, and connected the edited pose to the generation API.
-          </p>
-        </div>
+        <p class="kicker">Final Attempt</p>
+        <h2 id="final-title">ComfyUI, SAM3Dbody, and NanoBanana</h2>
+        <p class="section-summary">
+          The final version moved pose editing into ComfyUI, used SAM3Dbody to recover a rigged 3D
+          body from a single image, and connected the edited pose to the generation API.
+        </p>
         <div class="split visual-split">
           <figure class="media-frame">
             <img
@@ -161,16 +129,12 @@
       </section>
 
       <section id="pipeline" class="section" aria-labelledby="pipeline-title">
-        <div class="section-head">
-          <div>
-            <p class="kicker">Final Output and Pipeline</p>
-            <h2 id="pipeline-title">An interactive refinement loop</h2>
-          </div>
-          <p>
-            The pipeline was designed as a controllable editing loop rather than a repeated prompt
-            trial-and-error process.
-          </p>
-        </div>
+        <p class="kicker">Final Output and Pipeline</p>
+        <h2 id="pipeline-title">An interactive refinement loop</h2>
+        <p class="section-summary">
+          The pipeline was designed as a controllable editing loop rather than a repeated prompt
+          trial-and-error process.
+        </p>
         <div class="media-stack">
           <figure class="media-frame">
             <img
